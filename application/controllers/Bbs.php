@@ -1,29 +1,59 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @file Bbs.php
+ * @brief BBS controller class
+ * @author GyuminChoi(choegyumin@gmail.com)
+ */
+
 class Bbs extends CI_Controller {
 
-	function __construct() {
+	/**
+	 * @brief Set function of construct
+	 */
+	public function __construct() {
 		parent::__construct();
+
 		$this->load->database();
 		$this->load->model('bbs_model');
 	}
 
-	public function index() {
-		$seg = func_get_args();
-		$returning['SEG'] = $seg;
+	/**
+	 * @brief URL remapping and create page frame
+	 * @param string $method function in URL
+	 * @param array $segs segment in URL
+	 */
+	public function _remap($method, $segs = array()) {
+		$this->load->view('header');
 
-		//@@@
+		if (method_exists($this, $method . '_method')) $this->{$method . '_method'}($segs);
+		else $this->load->view('bbs_' . $method);
+
+		$this->load->view('footer');
 	}
 
-	public function lists() {
-		$seg = func_get_args();
-		$seg[0] = isset($seg[0]) ? strtolower($seg[0]) : 'all';
-		$seg[1] = isset($seg[1]) ? $seg[1] : 1;
-		$returning['SEG'] = $seg;
+	/**
+	 * @brief Return BBS index page(redirect to list page)
+	 * @param array $segs segment in URL
+	 */
+	public function index_method($segs = array()) {
+		//$segs = func_get_args();
+		$this->{'lists_method'}($segs);
+	}
 
-		$bbs_list_cond['cate'] = $seg[0];
-		$bbs_list_cond['page'] = $seg[1];
+	/**
+	 * @brief Return BBS list page
+	 * @param array $segs segment in URL
+	 */
+	public function lists_method($segs = array()) {
+		//$segs = func_get_args();
+		$segs[0] = isset($segs[0]) ? strtolower($segs[0]) : 'all';
+		$segs[1] = isset($segs[1]) ? $segs[1] : 1;
+		$returning['SEGS'] = $segs;
+
+		$bbs_list_cond['cate'] = $segs[0];
+		$bbs_list_cond['page'] = $segs[1];
 		$bbs_list_cond['len'] = 5;
 		$bbs_list_cond['start'] = $bbs_list_cond['page'] * $bbs_list_cond['len'] - $bbs_list_cond['len'];
 
@@ -38,14 +68,18 @@ class Bbs extends CI_Controller {
 		else $this->load->view('bbs_list', $returning);
 	}
 
-	public function view() {
-		$seg = func_get_args();
-		$seg[0] = isset($seg[0]) ? strtolower($seg[0]) : null;
-		$seg[1] = isset($seg[1]) ? $seg[1] : null;
-		$returning['SEG'] = $seg;
+	/**
+	 * @brief Return BBS view page
+	 * @param array $segs segment in URL
+	 */
+	public function view_method($segs = array()) {
+		//$segs = func_get_args();
+		$segs[0] = isset($segs[0]) ? strtolower($segs[0]) : null;
+		$segs[1] = isset($segs[1]) ? $segs[1] : null;
+		$returning['SEGS'] = $segs;
 
-		$bbs_view_cond['cate'] = $seg[0];
-		$bbs_view_cond['idx'] = $seg[1];
+		$bbs_view_cond['cate'] = $segs[0];
+		$bbs_view_cond['idx'] = $segs[1];
 
 		$returning['bbs_view'] = $bbs_view = $this->bbs_model->select_data_args($bbs_view_cond['cate'], $bbs_view_cond['idx']);
 
@@ -53,9 +87,14 @@ class Bbs extends CI_Controller {
 		else $this->load->view('bbs_view', $returning);
 	}
 
-	public function write() {
-		$seg = func_get_args();
-		$returning['SEG'] = $seg;
+	/**
+	 * @brief Return BBS write page
+	 * @param array $segs segment in URL
+	 * @todo make it do something
+	 */
+	public function write_method($segs = array()) {
+		//$segs = func_get_args();
+		$returning['SEGS'] = $segs;
 
 		$this->load->view('bbs_write', $returning);
 	}
