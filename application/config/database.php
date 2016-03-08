@@ -79,7 +79,7 @@ $db['default'] = array( // THIS IS PRIVATE DATA! SHOULD NOT PUSH CODE TO PUBLIC 
 	'username' => 'root',
 	'password' => '0000',
 	'database' => 'codeigniter_test',
-	'dbdriver' => 'mysql',
+	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
