@@ -9,10 +9,10 @@ Pages
 ### BBS
 
 ```
-/bbs/@action/@category/@index
+/bbs/#action/#category/#index
 ```
 
-#### @action
+#### #action
 
 - lists
 - view
