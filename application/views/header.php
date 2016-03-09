@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>CodeIgniter Test</title>
+<title><?php if (isset($page_title)) echo $page_title . ' : '; echo 'Codegniter'; ?></title>
 <style type="text/css">
 ::selection { background-color: #E13300; color: white; }
 ::-moz-selection { background-color: #E13300; color: white; }
