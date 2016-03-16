@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<div id="container">
 <h1>BBS Write page</h1>
 
 <div id="body">

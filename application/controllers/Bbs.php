@@ -45,12 +45,10 @@ class Bbs extends CI_Controller {
 			$view_html['method'] = $this->load->view('bbs_' . $method, null, true);
 		}
 
-		$view_html['header'] = $this->load->view('header', $data, true);
-		$view_html['footer'] = $this->load->view('footer', $data, true);
+		$view_html['header'] = $this->load->view('_header', $data, true);
+		$view_html['footer'] = $this->load->view('_footer', $data, true);
 
-		echo $view_html['header'];
-		echo $view_html['method'];
-		echo $view_html['footer'];
+		echo $view_html['header'] . $view_html['method'] . $view_html['footer'];
 	}
 
 	/**
